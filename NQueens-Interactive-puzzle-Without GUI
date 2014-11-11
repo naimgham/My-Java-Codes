@@ -1,0 +1,90 @@
+import java.util.Scanner;
+
+public class Queens {
+	
+	public static void main (String [] args)
+	{
+		Scanner scan = new Scanner(System.in);
+		int [][] board = new int [16][16]; 
+		System.out.println("Welcome to the 16 Queen puzzle\n");
+		
+		for(int i = 0; i< 16; i++)
+		{
+			System.out.println("Please choose a row between 1 and 16: ");
+			int row = scan.nextInt();
+			row = row -1;
+			System.out.println("Please choose a coloumn between 1 and 16: ");
+			int col = scan.nextInt();
+			col = col -1;
+			if(!Placeable(board, row, col) == false)
+				{
+					System.out.println("You have chosen a False position! ");
+				}
+			else 
+				board[row][col] = 1;
+		
+			System.out.println("Do you want to continue placing Queens? y/n");
+			String a = scan.next();
+			if (a.contentEquals("n"))
+				break;
+		
+		}
+		System.out.println("Do you want to see your answer? y/n" );
+		String b = scan.next();
+		System.out.println();
+		if(b.contentEquals("y"))
+		{
+			printQueens(board);
+		}
+		System.out.println("Thank you for Playing!");
+	}
+	
+	public static boolean Placeable(int[][] board, int row, int column) {
+		for (int j = 0; j < column; j++) 
+		{
+			if (board[row][j] == 1)
+				return true;
+		}
+
+		for (int j = column + 1; j < board.length; j++) 
+		{
+			if (board[row][j] == 1)
+				return true;
+		}
+		for (int i = row + 1, j = column + 1; i < board.length
+				&& j < board.length; i++, j++) 
+		{
+			if (board[i][j] == 1)
+				return true;
+		}
+		for (int i = row - 1, j = column - 1; i >= 0 && j >= 0; i--, j--)
+		{
+			if (board[i][j] == 1)
+				return true;
+		}
+		for (int i = row + 1, j = column - 1; i < board.length && j >= 0; i++, j--)
+		{
+			if (board[i][j] == 1)
+				return true;
+		}
+		for (int i = row - 1, j = column + 1; i >= 0 && j < board.length; i--, j++) 
+		{
+			if (board[i][j] == 1)
+				return true;
+		}
+		return false;
+	}
+	public static void printQueens(int[][] board) {
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				if(board[i][j] == 1)
+				{
+					System.out.print("Q" + " ");
+				}
+				else 
+					System.out.print("* ");
+			}
+			System.out.println();
+		}
+	}
+}
